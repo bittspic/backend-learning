@@ -79,4 +79,14 @@ func TestListAccount(t *testing.T) {
 	for _, account := range accounts {
 		require.NotEmpty(t, account)
 	}
+
+}
+
+func TestListAccountError(t *testing.T) {
+	errorArg := ListAccountParams{Limit: -1, Offset: -1}
+	for i := 0; i < 7; i++ {
+		createRandomAccount(t)
+	}
+	_, err2 := testQueries.ListAccount(context.Background(), errorArg)
+	require.Error(t, err2)
 }
