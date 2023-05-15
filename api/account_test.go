@@ -87,14 +87,14 @@ func TestGetAccountAPI(t *testing.T) {
 
 			store := mockdb.NewMockStore(ctrl)
 			tc.buildStubs(store)
-			server := NewServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/accounts/%d", tc.accountID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 			server.router.ServeHTTP(recorder, request)
-			tc.checkResponse(t,recorder)   
+			tc.checkResponse(t, recorder)
 		})
 	}
 
